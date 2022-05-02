@@ -10,5 +10,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "zhangjl",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "maven": "^5.0.0",
+    "node-gitlab": "^1.6.1",
+    "simple-git": "^3.7.1"
+  }
 }
