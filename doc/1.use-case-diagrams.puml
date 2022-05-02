@@ -1,0 +1,87 @@
+@startuml
+
+' actors
+:研发: as developer
+:ScrumMaster: as master
+
+' usecases
+usecase sprint_begin as "开始新迭代
+==
+1. master 分支合并到 develop 分支
+2. 从 develop 分支创建 release 分支
+3. develop 分支 POM 版本升级为 xxx-develop-SNAPSHOT
+4. release 分支版本升级为 xxx-rel-SNAPSHOT
+5. deploy develop api artifact
+6. deploy release api artifact
+"
+
+usecase sprint_complete as "新迭代结束
+==
+1. release 分支打标签 tag-xxx-date
+2. release 分支合并到 master 分支
+3. master 分支 POM 版本升级为 xxx
+4. master 分支打标签 tag-xxx-date
+5. deploy api artifact
+"
+
+usecase MR_hotfix as "hotfix MR 处理
+==
+1. 合并到 develop 分支, 以在研发环境测试
+2. 合并到 release 分支, 以在测试环境测试
+"
+
+usecase MR_bugfix as "release 分支 bugfix MR 处理
+==
+1. 合并到 develop, 此时需要注意 POM 版本冲突问题，然后在研发环境测试
+2. 合并到 release, 在测试环境测试
+"
+
+usecase new_feature_begin as "开始开发新功能
+==
+1. 从 develop 分支创建 feature-xxx 分支
+2. keep coding & debugging on local machine
+"
+
+usecase new_feature_complete as "新功能开发完成
+==
+1. 提交 feature 分支到 develop 分支的 MR
+"
+
+usecase hotfix as "修复线上 bug
+==
+1. 从 master 分支创建 hotfix-xxx 分支
+2. keep analyzing & coding & debugging
+3. 提交 hotfix-xxx 到 develop 分支的 MR, 然后在研发环境测试
+4. 提交 hotfix-xxx 到 release 分支的 MR, 在测试环境测试
+5. 提交 hotfix-xxx 到 master 分支的 MR, 在线上验证
+6. 线上问题数据修复
+"
+
+usecase rel.fix as "修复测试环境 bug
+==
+1. 从 release 创建 bugfix-xxx 分支
+2. keep analyzing & coding & debugging
+3. 提交 hotfix-xxx 到 develop 分支的 MR, 然后在研发环境测试
+4. 提交 hotfix-xxx 到 release 分支的 MR, 在测试环境测试
+"
+
+' notes
+' https://stackoverflow.com/questions/43398587/git-flow-versioning-with-maven
+' https://docs.gitlab.com/ee/user/project/merge_requests/conflicts.html
+note left of sprint_begin
+    之所以在 develop 更新版本之前拉出 release 分支，
+    是为了在之后将 release 分支上的 bugfix 合到 develop 分支时，
+    以合并冲突的形式解决版本覆盖的问题
+end note
+
+' connections
+master --> sprint_begin
+master --> MR_hotfix
+master --> MR_bugfix
+master --> sprint_complete
+
+developer --> new_feature_begin
+developer --> new_feature_complete
+developer --> hotfix
+developer --> rel.fix
+@enduml
