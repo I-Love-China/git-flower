@@ -9,16 +9,14 @@ import org.springframework.stereotype.Component;
  * @Date: 22-5-3
  * @Description:
  */
+
 @Data
 @Component
-@ConfigurationProperties(prefix = "gitlab")
-public class GitLabConfig {
-    private String url;
+@ConfigurationProperties(prefix = "git")
+public class GitConfig {
+    private String localDir;
 
-    // 通过环境变量设置
-    private String token;
+    private String author;
 
-    private String username;
-
-    private String password;
+    private String email;
 }

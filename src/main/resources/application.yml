@@ -1,3 +1,7 @@
 gitlab:
   url: http://10.1.140.2
   token:
+git:
+  localDir: git_tmp
+  author: flower
+  email: 1@gmail.com
