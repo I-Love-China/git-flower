@@ -14,4 +14,9 @@ public class Version {
     private int minor;
 
     private String patch;
+
+    @Override
+    public String toString() {
+     return String.format("%s.%s.%s", major, minor, patch);
+    }
 }
