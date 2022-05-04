@@ -1,0 +1,23 @@
+{
+  "projectName": {
+    "repoUrl": "http://10.1.140.2/oms/oms-mobile-ui",
+    "upgradeVersion": [
+      {
+        "versionFile": "xxx-api/pom.xml",
+        "versionBumper": "mvnParentVersionBumper"
+      }
+    ],
+    "deploy": [
+      {
+        "deployFile": "xxx-api/pom.xml",
+        "deployer": "mvnDeployer",
+        "depends": [
+          {
+            "projectName": "xxxProject",
+            "deployFile": "xxx-api/pom.xml"
+          }
+        ]
+      }
+    ]
+  }
+}
