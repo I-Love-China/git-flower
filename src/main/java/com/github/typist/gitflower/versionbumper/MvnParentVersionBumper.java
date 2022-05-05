@@ -18,10 +18,18 @@ public class MvnParentVersionBumper implements VersionBumper {
     @Override
     public void bump(File versionFile, Version newVersion) {
         // https://stackoverflow.com/questions/39449275/update-parent-version-in-a-maven-projects-module
-        ProcResult mvnRes = new ProcBuilder("mvn")
-                .withArg("versions:update-parent -DparentVersion='[" + newVersion + "]'")
-                .withWorkingDirectory(versionFile.getParentFile())
-                .run();
+
+        ProcBuilder procBuilder =
+                new ProcBuilder("mvn")
+                        .withArgs(
+                                "versions:update-parent",
+                                "-DparentVersion=[" + newVersion + "]",
+                                "-DallowSnapshots=true",
+                                "-f", versionFile.getAbsolutePath()
+                        )
+                        .withNoTimeout();
+        System.out.println(procBuilder.getCommandLine());
+        ProcResult mvnRes = procBuilder.run();
         Preconditions.checkState(mvnRes.getExitValue() == 0, "mvn versions:update-parent fail @" + versionFile);
     }
 }

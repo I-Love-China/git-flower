@@ -1,6 +1,7 @@
 package com.github.typist.gitflower.configuration;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.Feature;
 import com.github.typist.gitflower.config.GitLabConfig;
 import com.github.typist.gitflower.model.ProjectConfigLine;
 import com.google.common.collect.Maps;
@@ -43,12 +44,34 @@ public class ThirdConfiguration {
     }
 
     @Bean("projectConfig")
-    @SneakyThrows
     public Map<String, ProjectConfigLine> projectConfig() {
-        try (InputStream in = configJson.getInputStream()) {
-            JSONObject jsonObject = JSONObject.parseObject(IOUtils.toString(in, StandardCharsets.UTF_8));
+        return config("projectConfig");
+    }
 
-            Map<String, ProjectConfigLine> ret = Maps.newHashMapWithExpectedSize(jsonObject.size());
+    @Bean("prereqProjectConfig")
+    public Map<String, ProjectConfigLine> prereqProjetctConfig() {
+        return config("prereqProjetctConfig");
+    }
+
+    @Bean("allProjectConfig")
+    public Map<String, ProjectConfigLine> allProjectConfig() {
+        Map<String, ProjectConfigLine> allConfigs = prereqProjetctConfig();
+        for (Map.Entry<String, ProjectConfigLine> entry : projectConfig().entrySet()) {
+            allConfigs.put(entry.getKey(), entry.getValue());
+        }
+        return allConfigs;
+    }
+
+    @SneakyThrows
+    private Map<String, ProjectConfigLine> config(String configKey) {
+        try (InputStream in = configJson.getInputStream()) {
+            JSONObject jsonObject =
+                    JSONObject.parseObject(
+                            IOUtils.toString(in, StandardCharsets.UTF_8),
+                            Feature.OrderedField
+                    ).getJSONObject(configKey);
+
+            Map<String, ProjectConfigLine> ret = Maps.newLinkedHashMap();
             for (String key : jsonObject.keySet()) {
                 ret.put(key, jsonObject.getObject(key, ProjectConfigLine.class));
             }

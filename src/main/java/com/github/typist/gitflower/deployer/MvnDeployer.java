@@ -17,9 +17,11 @@ public class MvnDeployer implements Deployer {
     @Override
     public void deploy(File deployFile) {
         // https://stackoverflow.com/questions/4023597/specify-pom-xml-in-mvn-command-and-mix-goals-of-other-project
-        ProcResult mvnRes = new ProcBuilder("mvn")
-                .withArg("clear deploy -f " + deployFile.getAbsolutePath())
-                .run();
+        ProcBuilder procBuilder = new ProcBuilder("mvn")
+                .withArgs("clean", "install", "-U", "-f", deployFile.getAbsolutePath())
+                .withNoTimeout();
+        System.out.println(procBuilder.getCommandLine());
+        ProcResult mvnRes = procBuilder.run();
         Preconditions.checkState(mvnRes.getExitValue() == 0, "mvn deploy fail @" + deployFile);
     }
 }

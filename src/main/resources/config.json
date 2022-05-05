@@ -1,0 +1,112 @@
+{
+  "prereqProjetctConfig": {
+    "common-bom": {
+      "repoUrl": "http://10.1.140.2/oms/common-bom.git",
+      "upgradeVersion": [
+        {
+          "versionFile": "pom.xml",
+          "versionBumper": "mvnVersionBumper"
+        }
+      ],
+      "deploy": [
+        {
+          "deployFile": "pom.xml"
+        }
+      ]
+    },
+    "oms-self-dependencies": {
+      "repoUrl": "http://10.1.140.2/oms_zhangjinliang/oms-self-dependencies.git",
+      "upgradeVersion": [
+        {
+          "versionFile": "pom.xml",
+          "versionBumper": "mvnParentVersionBumper"
+        }
+      ],
+      "deploy": [
+        {
+          "deployFile": "pom.xml"
+        }
+      ]
+    }
+  },
+  "projectConfig": {
+    "oms-base": {
+      "repoUrl": "http://10.1.140.2/oms/oms-base.git",
+      "upgradeVersion": [
+        {
+          "versionFile": "pom.xml",
+          "versionBumper": "mvnParentVersionBumper"
+        },
+        {
+          "versionFile": "pom.xml",
+          "versionBumper": "mvnVersionBumper"
+        }
+      ],
+      "deploy": [
+        {
+          "deployFile": "crud-translate-core/pom.xml"
+        },
+        {
+          "deployFile": "pom.xml",
+          "depends": [
+            {
+              "projectName": "oms-credit",
+              "deployFile": "oms-credit-api/pom.xml"
+            },
+            {
+              "projectName": "oms-permission",
+              "deployFile": "oms-permission-api/pom.xml"
+            },
+            {
+              "projectName": "oms-permission",
+              "deployFile": "oms-permission-spring-boot-autofiguration/pom.xml"
+            }
+          ]
+        }
+      ]
+    },
+    "oms-credit": {
+      "repoUrl": "http://10.1.140.2/oms/oms-credit.git",
+      "upgradeVersion": [
+        {
+          "versionFile": "oms-credit-api/pom.xml",
+          "versionBumper": "mvnParentVersionBumper"
+        },
+        {
+          "versionFile": "oms-credit-service/pom.xml",
+          "versionBumper": "mvnParentVersionBumper"
+        }
+      ],
+      "deploy": [
+        {
+          "deployFile": "oms-credit-api/pom.xml"
+        }
+      ]
+    },
+    "oms-permission": {
+      "repoUrl": "http://10.1.140.2/oms/oms-permission.git",
+      "upgradeVersion": [
+        {
+          "versionFile": "oms-permission-api/pom.xml",
+          "versionBumper": "mvnParentVersionBumper"
+        },
+        {
+          "versionFile": "oms-permission-spring-boot-autofiguration/pom.xml",
+          "versionBumper": "mvnParentVersionBumper"
+        },
+        {
+          "versionFile": "oms-permission-service/pom.xml",
+          "versionBumper": "mvnParentVersionBumper"
+        }
+      ],
+      "deploy": [
+        {
+          "deployFile": "oms-permission-api/pom.xml"
+        },
+        {
+          "deployFile": "oms-permission-spring-boot-autofiguration/pom.xml"
+        }
+      ]
+    }
+  }
+}

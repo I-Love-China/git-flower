@@ -14,13 +14,13 @@ import java.io.File;
  * @Date: 22-5-4
  * @Description:
  */
-@Component("mvnParentVersionBumper")
+@Component("mvnVersionBumper")
 public class MvnVersionBumper implements VersionBumper {
     @Override
     public void bump(File versionFile, Version newVersion) {
         ProcResult mvnRes = new ProcBuilder("mvn")
-                .withArg("versions:set -DnewVersion=" + newVersion)
-                .withWorkingDirectory(versionFile.getParentFile())
+                .withArgs("versions:set", "-DnewVersion=" + newVersion, "-f", versionFile.getAbsolutePath())
+                .withNoTimeout()
                 .run();
         Preconditions.checkState(mvnRes.getExitValue() == 0, "mvn versions:set fail @" + versionFile);
     }
