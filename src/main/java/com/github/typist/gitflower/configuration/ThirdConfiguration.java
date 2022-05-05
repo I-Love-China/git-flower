@@ -6,6 +6,8 @@ import com.github.typist.gitflower.model.ProjectConfigLine;
 import com.google.common.collect.Maps;
 import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
+import org.eclipse.jgit.transport.CredentialsProvider;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.gitlab4j.api.GitLabApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,6 +35,11 @@ public class ThirdConfiguration {
     @Bean
     public GitLabApi gitLabApi() {
         return new GitLabApi(gitLabConfig.getUrl(), gitLabConfig.getToken());
+    }
+
+    @Bean
+    public CredentialsProvider credentialsProvider() {
+        return new UsernamePasswordCredentialsProvider(gitLabConfig.getUsername(), gitLabConfig.getPassword());
     }
 
     @Bean("projectConfig")
