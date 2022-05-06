@@ -18,10 +18,12 @@ import java.io.File;
 public class MvnVersionBumper implements VersionBumper {
     @Override
     public void bump(File versionFile, Version newVersion) {
-        ProcResult mvnRes = new ProcBuilder("mvn")
+
+        ProcBuilder procBuilder = new ProcBuilder("mvn")
                 .withArgs("versions:set", "-DnewVersion=" + newVersion, "-f", versionFile.getAbsolutePath())
-                .withNoTimeout()
-                .run();
+                .withNoTimeout();
+        System.out.println(procBuilder.getCommandLine());
+        ProcResult mvnRes = procBuilder.run();
         Preconditions.checkState(mvnRes.getExitValue() == 0, "mvn versions:set fail @" + versionFile);
     }
 }
