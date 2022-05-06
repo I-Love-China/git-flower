@@ -151,6 +151,7 @@ public class DeployHotfix implements Command {
             String projectName = entry.getKey();
             ProjectConfigLine projectConfig = entry.getValue();
             String projectDir = gitConfig.getLocalDir() + "/" + projectName;
+
             for (UpgradeVersionConfigLine upgradeVersionConfig : projectConfig.getUpgradeVersion()) {
                 File versionFile = new File(projectDir + "/" + upgradeVersionConfig.getVersionFile());
                 VersionBumper versionBumper = appCtx.getBean(upgradeVersionConfig.getVersionBumper(), VersionBumper.class);

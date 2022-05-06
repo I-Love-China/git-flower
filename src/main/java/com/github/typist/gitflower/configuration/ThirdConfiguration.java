@@ -55,7 +55,10 @@ public class ThirdConfiguration {
 
     @Bean("allProjectConfig")
     public Map<String, ProjectConfigLine> allProjectConfig() {
-        Map<String, ProjectConfigLine> allConfigs = prereqProjetctConfig();
+        Map<String, ProjectConfigLine> allConfigs = Maps.newLinkedHashMap();
+        for (Map.Entry<String, ProjectConfigLine> entry : prereqProjetctConfig().entrySet()) {
+            allConfigs.put(entry.getKey(), entry.getValue());
+        }
         for (Map.Entry<String, ProjectConfigLine> entry : projectConfig().entrySet()) {
             allConfigs.put(entry.getKey(), entry.getValue());
         }
