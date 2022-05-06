@@ -101,10 +101,34 @@
       ],
       "deploy": [
         {
-          "deployFile": "oms-permission-api/pom.xml"
+          "deployFile": "oms-permission-api/pom.xml",
+          "depends": [
+            {
+              "projectName": "oms-system",
+              "deployFile": "oms-system-api/pom.xml"
+            }
+          ]
         },
         {
           "deployFile": "oms-permission-spring-boot-autofiguration/pom.xml"
+        }
+      ]
+    },
+    "oms-system": {
+      "repoUrl": "http://10.1.140.2/oms/oms-system.git",
+      "upgradeVersion": [
+        {
+          "versionFile": "oms-system-api/pom.xml",
+          "versionBumper": "mvnParentVersionBumper"
+        },
+        {
+          "versionFile": "oms-system-service/pom.xml",
+          "versionBumper": "mvnParentVersionBumper"
+        }
+      ],
+      "deploy": [
+        {
+          "deployFile": "oms-system-api/pom.xml"
         }
       ]
     }
