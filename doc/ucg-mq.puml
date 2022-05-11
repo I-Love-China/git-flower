@@ -11,17 +11,23 @@ usecase sprint_begin as "开始新迭代
 
 usecase new_feature as "开发新功能
 ==
-1. 从 develop-xMyW 拉取 feat-xxx 分支
-2. 升级 POM 版本
+1. 从 production 拉取 feat-xxx 分支
+2. 升级 api POM 版本(可选)
+"
+
+usecase new_feature_self_testing as "新功能自测
+==
+1. feat-xxx 开发自行合并到 develop-xMyW 分支
+2. 研发环境自测
 "
 
 usecase new_feature_code_complete as "新功能(提测)
 ==
 1. feat-xxx MR 到 pre-production 分支
-2. 升级 POM 版本
+'2. 升级 POM 版本
 "
 
-usecase fix_test_bugfix as "修复测试环境的bug
+usecase fix_test_bugfix as "提测后修复测试环境的bug
 ==
 1. 在 feat-xxx 分支上修改 bug 并提交
 2. feat-xxx MR 到 pre-production 分支
@@ -30,13 +36,13 @@ usecase fix_test_bugfix as "修复测试环境的bug
 usecase new_feature_test_complete as "新功能测试完成上线
 ==
 1. feat-xxx MR 到 production 分支
-2. 升级 POM 版本
+2. 升级 api POM 版本
 3. 打 tag
 "
 
 usecase resume_last_sprint_feat as "继续上迭代未完成的功能
 ==
-1. 从 develop-xMyW 拉取 feat-yyy
+1. 从 production 拉取 feat-yyy
 2. 合并上迭代 feat 分支到 feat-yyy 分支
 3. 按本迭代新功能开发
 "
@@ -57,7 +63,7 @@ usecase hotfix as "修复线上bug
 ==
 1. 从 production 分支拉取 hotfix-xxx 分支
 2. 在 hotfix-xxx 修改 bug
-3. hotfix-xxx MR 到 develop 测试
+3. hotfix-xxx MR 到 develop-xMyW 测试
 4. hotfix-xxx MR 到 pre-production 测试
 5. hotfix-xxx MR 到 production
 6. production POM 版本升级
