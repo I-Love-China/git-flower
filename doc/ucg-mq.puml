@@ -49,7 +49,7 @@ usecase resume_last_sprint_feat as "继续上迭代未完成的功能
 
 usecase revert_feat as "回退有问题的功能
 ==
-1. revert feat-xxx 到 production 分支的 MR
+1. revert feat-xxx 到 pre-production 分支的 MR
 "
 
 usecase resume_reverted_feat as "继续开发上迭代回退的功能
@@ -74,10 +74,12 @@ master --> sprint_begin
 master --> revert_feat
 
 developer --> new_feature
+developer --> new_feature_self_testing
 developer --> new_feature_code_complete
 developer --> fix_test_bugfix
 developer --> new_feature_test_complete
 developer --> resume_last_sprint_feat
 developer --> resume_reverted_feat
 developer --> hotfix
+
 @enduml
