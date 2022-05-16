@@ -6,7 +6,7 @@
 ' usecases
 usecase sprint_begin as "开始新迭代
 ==
-1. 从 production 分支拉取 develop-xMyW 分支
+1. 从 production 分支拉取 develop 分支
 "
 
 usecase new_feature as "开发新功能
@@ -17,7 +17,7 @@ usecase new_feature as "开发新功能
 
 usecase new_feature_self_testing as "新功能自测
 ==
-1. feat-xxx 开发自行合并到 develop-xMyW 分支
+1. feat-xxx 开发自行合并到 develop 分支
 2. 研发环境自测
 "
 
@@ -63,7 +63,7 @@ usecase hotfix as "修复线上bug
 ==
 1. 从 production 分支拉取 hotfix-xxx 分支
 2. 在 hotfix-xxx 修改 bug
-3. hotfix-xxx MR 到 develop-xMyW 测试
+3. hotfix-xxx MR 到 develop 测试
 4. hotfix-xxx MR 到 pre-production 测试
 5. hotfix-xxx MR 到 production
 6. production POM 版本升级
