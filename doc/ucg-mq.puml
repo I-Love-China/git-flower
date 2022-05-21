@@ -21,6 +21,13 @@ usecase new_feature_self_testing as "新功能自测
 2. 研发环境自测
 "
 
+usecase new_feature_merge_to_develop_conflict as "解决合并到 develop 产生的冲突
+==
+1. 从 develop 分支拉取用于冲突处理的分支 mc-feat-xxx-<MR编号>
+2. 手动将 feat-xxx 分支合并到 mc-feat-xxx 分支
+3. mc-feat-xxx MR 到 develop 分支
+"
+
 usecase new_feature_code_complete as "新功能(提测)
 ==
 1. feat-xxx MR 到 qas 分支
@@ -77,6 +84,7 @@ master --> revert_feat
 
 developer --> new_feature
 developer --> new_feature_self_testing
+developer --> new_feature_merge_to_develop_conflict
 developer --> new_feature_code_complete
 developer --> fix_test_bugfix
 developer --> new_feature_test_complete
